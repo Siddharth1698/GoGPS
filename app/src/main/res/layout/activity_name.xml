@@ -14,6 +14,7 @@
         android:layout_alignParentTop="true"
         android:layout_marginStart="133dp"
         android:layout_marginTop="25dp"
+        android:onClick="SelectImage"
         android:src="@mipmap/ic_launcher"
         app:civ_border_color="#FF000000"
         app:civ_border_width="2dp" />
@@ -37,6 +38,7 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="213dp"
-        android:text="Button" />
+        android:onClick="generateCode"
+        android:text="Next" />
 
 </RelativeLayout>

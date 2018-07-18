@@ -24,13 +24,14 @@ public class RegisterActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        auth = FirebaseAuth.getInstance();
         setContentView(R.layout.activity_register);
         e1 = (EditText)findViewById(R.id.editText3);
         b1 = (Button)findViewById(R.id.button3);
         progressDialog = new ProgressDialog(this);
 
     }
-    public goToPasswordActivity(View v){
+    public void goToPassword(View v){
         progressDialog.setMessage("Checking Email Address");
         progressDialog.show();
         auth.fetchProvidersForEmail(e1.getText().toString()).addOnCompleteListener(new OnCompleteListener<ProviderQueryResult>() {

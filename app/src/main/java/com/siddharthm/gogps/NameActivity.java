@@ -40,7 +40,7 @@ public class NameActivity extends AppCompatActivity {
             password = myIntent.getStringExtra("password");
         }
     }
-    public generateCode(View v){
+    public void generateCode(View v){
         Date myDate = new Date();
         SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss a", Locale.getDefault());
         String date = format1.format(myDate);
