@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "608452230703",
+    "firebase_url": "https://gogps-4d866.firebaseio.com",
+    "project_id": "gogps-4d866",
+    "storage_bucket": "gogps-4d866.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:608452230703:android:27be7dba3164652a",
+        "android_client_info": {
+          "package_name": "com.siddharthm.gogps"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "608452230703-d037l97406kaj3r5brhgo9b735qaq4s4.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.siddharthm.gogps",
+            "certificate_hash": "dd2150147763d1bac9b257511fb14b0eca138646"
+          }
+        },
+        {
+          "client_id": "608452230703-cq3m03s19e5nlmt34utg8pv8914d1quv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD-GvAaHB8JjkHNxzkHoAhLrVet7PypJ7w"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "608452230703-cq3m03s19e5nlmt34utg8pv8914d1quv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
