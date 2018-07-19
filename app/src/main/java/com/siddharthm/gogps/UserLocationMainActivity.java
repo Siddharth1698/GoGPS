@@ -14,29 +14,31 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.firebase.auth.FirebaseAuth;
 
-public class MyNavigationActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
-
+public class UserLocationMainActivity extends AppCompatActivity
+        implements NavigationView.OnNavigationItemSelectedListener,OnMapReadyCallback {
     private FirebaseAuth auth;
+    GoogleMap mMap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_my_navigation);
+        setContentView(R.layout.activity_user_location_main);
         auth = FirebaseAuth.getInstance();
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.map);
+        mapFragment.getMapAsync(this);
+
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -61,7 +63,7 @@ public class MyNavigationActivity extends AppCompatActivity
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.my_navigation, menu);
+        getMenuInflater().inflate(R.menu.user_location_main, menu);
         return true;
     }
 
@@ -73,7 +75,7 @@ public class MyNavigationActivity extends AppCompatActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_signOut) {
+        if (id == R.id.action_settings) {
             return true;
         }
 
@@ -86,26 +88,37 @@ public class MyNavigationActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-       if (id == R.id.nav_signOut) {
+        if (id == R.id.nav_signOut) {
             auth.signOut();
-            Intent intent = new Intent(MyNavigationActivity.this,MainActivity.class);
+            Intent intent = new Intent(UserLocationMainActivity.this,MainActivity.class);
             startActivity(intent);
             finish();
 
         } else if(id == R.id.nav_joinCircle){
 
-       }else if(id == R.id.nav_myCircle){
+        }else if(id == R.id.nav_myCircle){
 
-       }else if(id == R.id.nav_joinedCircle){
+        }else if(id == R.id.nav_joinedCircle){
 
-       }else if(id == R.id.nav_inviteMembers){
+        }else if(id == R.id.nav_inviteMembers){
 
-       }else if(id == R.id.nav_shareLoc){
+        }else if(id == R.id.nav_shareLoc){
 
-       }
+        }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+
+        mMap = googleMap;
+
+        // Add a marker in Sydney and move the camera
+        LatLng sydney = new LatLng(-34, 151);
+        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
     }
 }
