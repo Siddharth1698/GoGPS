@@ -27,6 +27,7 @@ public class PasswordActivity extends AppCompatActivity {
             myIntemt.putExtra("email",email);
             myIntemt.putExtra("password",e4.getText().toString());
             startActivity(myIntemt);
+            finish();
         }else{
             Toast.makeText(PasswordActivity.this,"Password length should be more than 6",Toast.LENGTH_SHORT).show();
         }

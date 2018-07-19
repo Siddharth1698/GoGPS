@@ -1,5 +1,6 @@
 package com.siddharthm.gogps;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -31,6 +32,9 @@ public class LoginActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                        if (task.isSuccessful()){
                            Toast.makeText(LoginActivity.this,"User has succesfully Logged in",Toast.LENGTH_SHORT).show();
+                           Intent myIntent = new Intent(LoginActivity.this,MyNavigationActivity.class);
+                           startActivity(myIntent);
+                           finish();
 
                        }else {
                            Toast.makeText(LoginActivity.this,"Wrong email and password",Toast.LENGTH_SHORT).show();

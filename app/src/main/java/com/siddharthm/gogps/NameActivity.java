@@ -63,6 +63,7 @@ public class NameActivity extends AppCompatActivity {
             myIntent.putExtra("imageUri",resultUri);
 
             startActivity(myIntent);
+            finish();
 
         }else{
             Toast.makeText(NameActivity.this,"Please Choose an image",Toast.LENGTH_SHORT).show();

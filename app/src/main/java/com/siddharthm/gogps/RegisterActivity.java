@@ -44,6 +44,7 @@ public class RegisterActivity extends AppCompatActivity {
                           Intent myIntent = new Intent(RegisterActivity.this,PasswordActivity.class);
                           myIntent.putExtra("email",e1.getText().toString());
                           startActivity(myIntent);
+                          finish();
 
                       }else {
                           progressDialog.dismiss();
