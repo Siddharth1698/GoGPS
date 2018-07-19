@@ -94,8 +94,8 @@ public class InviteCodeActivity extends AppCompatActivity {
                                                 public void onComplete(@NonNull Task<Void> task) {
                                                     if (task.isSuccessful()){
                                                         dialog.dismiss();
-                                                        Toast.makeText(InviteCodeActivity.this,"User registered succesfully",Toast.LENGTH_SHORT).show();
-                                                        Intent myIntent = new Intent(InviteCodeActivity.this,UserLocationMainActivity.class);
+                                                        Intent myIntent = new Intent(InviteCodeActivity.this,MainActivity.class);
+                                                        sendVerificationEmail();
                                                         startActivity(myIntent);
                                                     }
                                                     else{
@@ -117,6 +117,21 @@ public class InviteCodeActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    private void sendVerificationEmail() {
+            user.sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    if (task.isSuccessful()){
+                        Toast.makeText(InviteCodeActivity.this,"Email Sent for Verification",Toast.LENGTH_SHORT).show();
+                        finish();
+                        auth.signOut();
+                    }else {
+                        Toast.makeText(InviteCodeActivity.this,"Could not send verication mail",Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
     }
 
 }
