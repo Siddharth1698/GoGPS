@@ -21,10 +21,12 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class UserLocationMainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,OnMapReadyCallback {
     private FirebaseAuth auth;
+    private FirebaseUser user;
     GoogleMap mMap;
 
     @Override
@@ -32,6 +34,7 @@ public class UserLocationMainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_location_main);
         auth = FirebaseAuth.getInstance();
+        user = auth.getCurrentUser();
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -89,10 +92,15 @@ public class UserLocationMainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_signOut) {
-            auth.signOut();
-            Intent intent = new Intent(UserLocationMainActivity.this,MainActivity.class);
-            startActivity(intent);
-            finish();
+
+            if (user!=null){
+                auth.signOut();
+                finish();
+                Intent intent = new Intent(UserLocationMainActivity.this,MainActivity.class);
+                startActivity(intent);
+
+            }
+
 
         } else if(id == R.id.nav_joinCircle){
 
