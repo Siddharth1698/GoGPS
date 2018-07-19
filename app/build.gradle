@@ -31,6 +31,7 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
     implementation 'de.hdodenhof:circleimageview:2.2.0'
     compile 'com.theartofdev.edmodo:android-image-cropper:2.7.+'
+    compile 'com.github.karanchuri:PermissionManager:0.1.0'
 }
 
 apply plugin: 'com.google.gms.google-services'
