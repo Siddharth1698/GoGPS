@@ -74,10 +74,6 @@ public class MyNavigationActivity extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_signOut) {
-            auth.signOut();
-            Intent intent = new Intent(MyNavigationActivity.this,MainActivity.class);
-            startActivity(intent);
-            finish();
             return true;
         }
 
@@ -90,19 +86,23 @@ public class MyNavigationActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
+       if (id == R.id.nav_signOut) {
+            auth.signOut();
+            Intent intent = new Intent(MyNavigationActivity.this,MainActivity.class);
+            startActivity(intent);
+            finish();
 
-        } else if (id == R.id.nav_slideshow) {
+        } else if(id == R.id.nav_joinCircle){
 
-        } else if (id == R.id.nav_manage) {
+       }else if(id == R.id.nav_myCircle){
 
-        } else if (id == R.id.nav_share) {
+       }else if(id == R.id.nav_joinedCircle){
 
-        } else if (id == R.id.nav_send) {
+       }else if(id == R.id.nav_inviteMembers){
 
-        }
+       }else if(id == R.id.nav_shareLoc){
+
+       }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
