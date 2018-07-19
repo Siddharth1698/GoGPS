@@ -2,6 +2,7 @@ package com.siddharthm.gogps;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -18,6 +19,9 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 public class InviteCodeActivity extends AppCompatActivity {
     private String name,email,password,date,isSharing,code;
@@ -29,6 +33,7 @@ public class InviteCodeActivity extends AppCompatActivity {
     DatabaseReference reference;
     ProgressDialog dialog;
     String UserId;
+    StorageReference storageReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +44,7 @@ public class InviteCodeActivity extends AppCompatActivity {
         b3 = (Button)findViewById(R.id.button8);
         auth = FirebaseAuth.getInstance();
         reference = FirebaseDatabase.getInstance().getReference().child("Users");
+        storageReference = FirebaseStorage.getInstance().getReference().child("User_Images");
         dialog = new ProgressDialog(this);
         Intent myIntent = getIntent();
         if (myIntent!=null){
@@ -76,10 +82,31 @@ public class InviteCodeActivity extends AppCompatActivity {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
                             if (task.isSuccessful()){
-                                dialog.dismiss();
-                                Toast.makeText(InviteCodeActivity.this,"Users Registered Sucessfully",Toast.LENGTH_SHORT).show();
-                                Intent mYiNTENT = new Intent(InviteCodeActivity.this,UserLocationMainActivity.class);
-                                startActivity(mYiNTENT);
+
+                                StorageReference sr = storageReference.child(user.getUid()+ ".jpg");
+                                sr.putFile(imageUri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
+                                        if (task.isSuccessful()){
+                                            String download_image_patch = task.getResult().getDownloadUrl().toString();
+                                            reference.child(user.getUid()).child("imageUrl").setValue(download_image_patch).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                @Override
+                                                public void onComplete(@NonNull Task<Void> task) {
+                                                    if (task.isSuccessful()){
+                                                        dialog.dismiss();
+                                                        Toast.makeText(InviteCodeActivity.this,"User registered succesfully",Toast.LENGTH_SHORT).show();
+                                                        Intent myIntent = new Intent(InviteCodeActivity.this,UserLocationMainActivity.class);
+                                                        startActivity(myIntent);
+                                                    }
+                                                    else{
+                                                        Toast.makeText(InviteCodeActivity.this,"Error occured while registration",Toast.LENGTH_SHORT).show();
+                                                    }
+                                                }
+                                            });
+
+                                        }
+                                    }
+                                });
                             }else {
                                 dialog.dismiss();
                                 Toast.makeText(InviteCodeActivity.this,"Registration failed. Try Again",Toast.LENGTH_SHORT).show();
