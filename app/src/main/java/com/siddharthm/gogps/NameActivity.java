@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.theartofdev.edmodo.cropper.CropImage;
@@ -26,6 +27,7 @@ public class NameActivity extends AppCompatActivity {
     private EditText editText5;
     private Button button5;
     private Uri resultUri;
+    private  String code;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,11 +36,14 @@ public class NameActivity extends AppCompatActivity {
         editText5 = (EditText)findViewById(R.id.editText5);
         button5 = (Button)findViewById(R.id.button5);
         profileImage = (CircleImageView)findViewById(R.id.profile_image);
+
         Intent myIntent = getIntent();
         if (myIntent!=null){
             email = myIntent.getStringExtra("email");
             password = myIntent.getStringExtra("password");
         }
+
+
     }
     public void generateCode(View v){
         Date myDate = new Date();
@@ -46,7 +51,7 @@ public class NameActivity extends AppCompatActivity {
         String date = format1.format(myDate);
         Random r = new Random();
         int n = 100000 + r.nextInt(900000);
-        String code = String.valueOf(n);
+        code = String.valueOf(n);
         if (resultUri!=null){
             Intent myIntent = new Intent(NameActivity.this,InviteCodeActivity.class);
             myIntent.putExtra("name",editText5.getText().toString());
@@ -56,6 +61,7 @@ public class NameActivity extends AppCompatActivity {
             myIntent.putExtra("isSharing","false");
             myIntent.putExtra("code",code);
             myIntent.putExtra("imageUri",resultUri);
+
             startActivity(myIntent);
 
         }else{
