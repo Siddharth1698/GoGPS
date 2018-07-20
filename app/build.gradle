@@ -38,6 +38,7 @@ dependencies {
     compile 'com.github.GoodieBag:Pinview:v1.3'
     compile 'com.github.karanchuri:PermissionManager:0.1.0'
     implementation 'com.squareup.picasso:picasso:2.71828'
+    implementation 'com.android.support:cardview-v7:27.1.1'
 }
 
 apply plugin: 'com.google.gms.google-services'

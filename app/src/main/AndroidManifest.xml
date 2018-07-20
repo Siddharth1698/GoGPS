@@ -53,7 +53,8 @@
             android:name=".UserLocationMainActivity"
             android:label="@string/title_activity_user_location_main"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".JoinCircleActivity"></activity>
+        <activity android:name=".JoinCircleActivity" />
+        <activity android:name=".MyCircleActivity"></activity>
     </application>
 
 </manifest>
