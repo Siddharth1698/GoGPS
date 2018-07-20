@@ -35,6 +35,7 @@ public class InviteCodeActivity extends AppCompatActivity {
     String UserId;
     StorageReference storageReference;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -75,8 +76,8 @@ public class InviteCodeActivity extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()){
-                    CreateUsers createUsers = new CreateUsers(name,email,password,code,"false","na","na","na",user.getUid());
                     user = auth.getCurrentUser();
+                    CreateUsers createUsers = new CreateUsers(name,email,password,code,"false","na","na","na",user.getUid());
                     UserId = user.getUid();
                     reference.child(UserId).setValue(createUsers).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override

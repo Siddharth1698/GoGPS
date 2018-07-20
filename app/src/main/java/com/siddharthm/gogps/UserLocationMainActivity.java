@@ -163,6 +163,8 @@ public class UserLocationMainActivity extends AppCompatActivity
 
 
         } else if (id == R.id.nav_joinCircle) {
+            Intent intent = new Intent(UserLocationMainActivity.this,JoinCircleActivity.class);
+            startActivity(intent);
 
         } else if (id == R.id.nav_myCircle) {
 
@@ -175,7 +177,7 @@ public class UserLocationMainActivity extends AppCompatActivity
             i.setType("text/plain");
             i.putExtra(Intent.EXTRA_TEXT,"My Location is : "+"https://www.google.com/maps/@"+latLng.latitude+","+latLng.longitude+",17z");
             startActivity(i.createChooser(i,"Share Using : "));
-            
+
 
 
         }
