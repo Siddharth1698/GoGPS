@@ -18,6 +18,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -33,21 +35,28 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.squareup.picasso.Picasso;
 
 public class UserLocationMainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener {
     private FirebaseAuth auth;
     StorageReference storageReference;
     DatabaseReference reference;
-    private FirebaseUser user;
+    FirebaseUser user;
+    String current_user_name,current_user_email,current_user_url;
     GoogleMap mMap;
     GoogleApiClient client;
     LatLng latLng;
     LocationRequest request;
+    TextView t1_currentName,t2_currentEmail;
+    ImageView i1_imageProfile;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +65,7 @@ public class UserLocationMainActivity extends AppCompatActivity
         auth = FirebaseAuth.getInstance();
         reference = FirebaseDatabase.getInstance().getReference().child("Users");
         storageReference = FirebaseStorage.getInstance().getReference().child("User_Images");
+        user = auth.getCurrentUser();
         user = auth.getCurrentUser();
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -73,6 +83,34 @@ public class UserLocationMainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        View header = navigationView.getHeaderView(0);
+        t1_currentName = (TextView)header.findViewById(R.id.NameHeader);
+        t2_currentEmail = (TextView)header.findViewById(R.id.EmailHeader);
+        i1_imageProfile = (ImageView)header.findViewById(R.id.profileImageHeader);
+
+
+
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                   current_user_name = dataSnapshot.child(user.getUid()).child("name").getValue(String.class);
+                   current_user_email = dataSnapshot.child(user.getUid()).child("email").getValue(String.class);
+                   current_user_url = dataSnapshot.child(user.getUid()).child("imageUrl").getValue(String.class);
+                   t1_currentName.setText(current_user_name);
+                   t2_currentEmail.setText(current_user_email);
+                 Picasso.get().load(current_user_url
+                 ).into(i1_imageProfile);
+
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 
     @Override
