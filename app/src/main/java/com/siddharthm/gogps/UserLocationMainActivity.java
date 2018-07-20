@@ -171,6 +171,12 @@ public class UserLocationMainActivity extends AppCompatActivity
         } else if (id == R.id.nav_inviteMembers) {
 
         } else if (id == R.id.nav_shareLoc) {
+            Intent i = new Intent(Intent.ACTION_SEND);
+            i.setType("text/plain");
+            i.putExtra(Intent.EXTRA_TEXT,"My Location is : "+"https://www.google.com/maps/@"+latLng.latitude+","+latLng.longitude+",17z");
+            startActivity(i.createChooser(i,"Share Using : "));
+            
+
 
         }
 
