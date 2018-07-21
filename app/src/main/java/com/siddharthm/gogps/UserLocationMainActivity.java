@@ -167,6 +167,8 @@ public class UserLocationMainActivity extends AppCompatActivity
             startActivity(intent);
 
         } else if (id == R.id.nav_myCircle) {
+            Intent intent = new Intent(UserLocationMainActivity.this,MyCircleActivity.class);
+            startActivity(intent);
 
         } else if (id == R.id.nav_joinedCircle) {
 
