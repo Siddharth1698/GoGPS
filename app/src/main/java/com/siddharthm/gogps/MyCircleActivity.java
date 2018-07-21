@@ -47,7 +47,7 @@ public class MyCircleActivity extends AppCompatActivity {
         FirebaseRecyclerAdapter<CreateUsers, MyCircleActivityViewHolder> firebaseRecyclerAdapter = new
                 FirebaseRecyclerAdapter<CreateUsers, MyCircleActivityViewHolder>(CreateUsers.class,R.layout.card_layout
                 ,MyCircleActivityViewHolder.class,
-                user_reference) {
+                reference) {
             @Override
             protected void populateViewHolder(MyCircleActivityViewHolder viewHolder, CreateUsers model, int position) {
                 viewHolder.setName(model.getName());
