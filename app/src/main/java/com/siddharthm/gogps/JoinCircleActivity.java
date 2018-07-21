@@ -24,7 +24,7 @@ public class JoinCircleActivity extends AppCompatActivity {
     FirebaseUser user;
     String current_user_id,join_userId;
     FirebaseAuth auth;
-    DatabaseReference circleReference;
+    DatabaseReference circleReference,circleReference1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,7 +47,9 @@ public class JoinCircleActivity extends AppCompatActivity {
                     for (DataSnapshot childDss: dataSnapshot.getChildren() ){
                         createUsers = childDss.getValue(CreateUsers.class);
                         join_userId = createUsers.user_id;
-                        circleReference = FirebaseDatabase.getInstance().getReference().child("Users").child(join_userId).child("CircleMembers");
+                        circleReference = FirebaseDatabase.getInstance().getReference().child("Circles").child(join_userId).child("CircleMembers");
+
+                        circleReference1 = FirebaseDatabase.getInstance().getReference().child("Circles").child(current_user_id).child("CircleMembers");
 
                         CircleJoin circleJoin = new CircleJoin(current_user_id);
                         CircleJoin circleJoin1 = new CircleJoin(join_userId);
@@ -60,6 +62,16 @@ public class JoinCircleActivity extends AppCompatActivity {
                                 }
                             }
                         });
+
+                        circleReference1.child(join_userId).setValue(circleJoin1).addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                if(task.isSuccessful()){
+                                    Toast.makeText(JoinCircleActivity.this,"User Joined Circle Succesfully",Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        });
+
                     }
                 } else {
                     Toast.makeText(JoinCircleActivity.this,"Circle Code not valid",Toast.LENGTH_SHORT).show();
