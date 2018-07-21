@@ -41,14 +41,13 @@ public class MyCircleActivity extends AppCompatActivity {
         auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();
         reference = FirebaseDatabase.getInstance().getReference().child("Circles").child(user.getUid()).child("CircleMembers");
-        user_reference = FirebaseDatabase.getInstance().getReference().child("Circles");
         mUsersList.setHasFixedSize(true);
         mUsersList.setLayoutManager(new LinearLayoutManager(this));
 
         FirebaseRecyclerAdapter<CreateUsers, MyCircleActivityViewHolder> firebaseRecyclerAdapter = new
                 FirebaseRecyclerAdapter<CreateUsers, MyCircleActivityViewHolder>(CreateUsers.class,R.layout.card_layout
                 ,MyCircleActivityViewHolder.class,
-                reference) {
+                user_reference) {
             @Override
             protected void populateViewHolder(MyCircleActivityViewHolder viewHolder, CreateUsers model, int position) {
                 viewHolder.setName(model.getName());
